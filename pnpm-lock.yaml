@@ -4,9 +4,11 @@ importers:
 
   bot:
     specifiers:
+      '@questdb/nodejs-client': ^1.0.0
       discord.js: ^14.2.0
       dotenv: ^16.0.1
     dependencies:
+      '@questdb/nodejs-client': 1.0.0
       discord.js: 14.2.0
       dotenv: 16.0.1
 
@@ -39,6 +41,10 @@ packages:
       file-type: 17.1.6
       tslib: 2.4.0
       undici: 5.9.1
+    dev: false
+
+  /@questdb/nodejs-client/1.0.0:
+    resolution: {integrity: sha512-GbB8warxo7+kZlwfHLOE/FqNoa+0G3mHC5MTYkslKt9gPX94E+8THujMDjNWVRi/+xfU1513v/RVzBHn8TZMDQ==}
     dev: false
 
   /@sapphire/async-queue/1.5.0:
