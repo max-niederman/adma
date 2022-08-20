@@ -1,3 +1,6 @@
 {
-    "discord.enabled": true
+    "discord.enabled": true,
+    "yaml.schemas": {
+        "https://json.schemastore.org/github-workflow.json": "file:///home/max/projects/comm/adma/.github/workflows/deploy.yaml"
+    }
 }
