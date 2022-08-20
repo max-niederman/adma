@@ -1,0 +1,9 @@
+# development
+.direnv
+.env
+
+# node
+node_modules
+
+# logs
+*.log

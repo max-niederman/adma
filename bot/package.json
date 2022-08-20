@@ -1,0 +1,15 @@
+{
+  "name": "@adma/bot",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "main.js",
+  "author": "Max Niederman <max@maxniederman.com>",
+  "license": "MIT",
+  "scripts": {
+    "bot": "node main.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.2.0",
+    "dotenv": "^16.0.1"
+  }
+}
