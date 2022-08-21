@@ -37,6 +37,7 @@ client.on("presenceUpdate", async (_old, pres) => {
         sender
             .symbol("activity_type", ActivityType[activity.type])
             .symbol("activity_name", activity.name)
+            .stringColumn("activity_state", activity.state ?? "")
             .stringColumn("activity_details", activity.details ?? "")
             .booleanColumn("activity_present", true);
     } else {

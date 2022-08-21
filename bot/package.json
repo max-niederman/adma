@@ -1,6 +1,6 @@
 {
   "name": "@adma/bot",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "type": "module",
   "main": "main.js",
   "author": "Max Niederman <max@maxniederman.com>",
