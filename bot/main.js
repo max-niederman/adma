@@ -25,24 +25,53 @@ client.once("ready", (c) => {
     console.log(`Invite link: https://discord.com/api/oauth2/authorize?client_id=${c.user.id}&permissions=0&scope=bot`);
 });
 
-client.on("presenceUpdate", async (_old, pres) => {
-    sender
-        .table("presence")
-        .symbol("tag", pres.user.tag)
-        .symbol("status", pres.status);
+const TRACKED_ACTIVITIES = {
+    "playing": ActivityType.Playing,
+    "streaming": ActivityType.Streaming,
+    "listening": ActivityType.Listening,
+    "watching": ActivityType.Watching,
+    "custom": ActivityType.Custom,
+    "competing": ActivityType.Competing,
+};
 
-    if (pres.activities.length > 0) {
-        // TODO: handle multiple activities
-        const activity = pres.activities[0];
-        sender
-            .symbol("activity_type", ActivityType[activity.type])
-            .symbol("activity_name", activity.name)
-            .stringColumn("activity_state", activity.state ?? "")
-            .stringColumn("activity_details", activity.details ?? "")
-            .booleanColumn("activity_present", true);
-    } else {
-        sender
-            .booleanColumn("activity_present", false);
+client.on("presenceUpdate", async (_old, pres) => {
+    const fields = [];
+
+    fields.push({ name: "tag", type: "symbol", value: pres.user.tag });
+    fields.push({ name: "status", type: "symbol", value: pres.status });
+
+    for (const [name, type] of Object.entries(TRACKED_ACTIVITIES)) {
+        const activity = pres.activities.find((a) => a.type === type);
+        fields.push({ name: `activity_${name}_present`, type: "boolean", value: activity !== undefined });
+        fields.push({ name: `activity_${name}_name`, type: "symbol", value: activity?.name ?? null });
+        fields.push({ name: `activity_${name}_state`, type: "symbol", value: activity?.state ?? null });
+        fields.push({ name: `activity_${name}_details`, type: "string", value: activity?.details ?? null });
+    }
+
+    sender.table("presence");
+    fields.sort((a, b) => {
+        const priority = {
+            "symbol": 0,
+            "string": 1,
+            "boolean": 1,
+        };
+        return priority[a.type] - priority[b.type];
+    })
+
+    for (const { name, type, value } of fields) {
+        if (value) {
+            switch (type) {
+                case "symbol":
+                    sender.symbol(name, value);
+                    break;
+                case "string":
+                    sender.stringColumn(name, value);
+                    break;
+                case "boolean":
+                    sender.booleanColumn(name, value);
+                    break;
+            }
+        }
     }
 
     sender.atNow();

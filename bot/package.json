@@ -1,6 +1,6 @@
 {
   "name": "@adma/bot",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "type": "module",
   "main": "main.js",
   "author": "Max Niederman <max@maxniederman.com>",
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@questdb/nodejs-client": "^1.0.0",
-    "discord.js": "^14.2.0",
+    "discord.js": "^14.3.0",
     "dotenv": "^16.0.1"
   }
 }
