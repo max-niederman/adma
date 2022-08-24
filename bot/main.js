@@ -44,7 +44,7 @@ client.on("presenceUpdate", async (_old, pres) => {
         const activity = pres.activities.find((a) => a.type === type);
         fields.push({ name: `activity_${name}_present`, type: "boolean", value: activity !== undefined });
         fields.push({ name: `activity_${name}_name`, type: "symbol", value: activity?.name ?? null });
-        fields.push({ name: `activity_${name}_state`, type: "symbol", value: activity?.state ?? null });
+        fields.push({ name: `activity_${name}_state`, type: "string", value: activity?.state ?? null });
         fields.push({ name: `activity_${name}_details`, type: "string", value: activity?.details ?? null });
     }
 
