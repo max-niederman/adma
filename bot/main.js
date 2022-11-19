@@ -1,6 +1,8 @@
 import "dotenv/config";
 import { Client, ActivityType, IntentsBitField } from "discord.js";
 import { Sender } from "@questdb/nodejs-client";
+import { registerCommands } from "./commands.js";
+import { getUserCount } from "./stats.js";
 
 const client = new Client({
     intents: [
@@ -80,7 +82,25 @@ client.on("presenceUpdate", async (_old, pres) => {
 
 await sender.connect({
     host: process.env.QUESTDB_HOST,
-    port: process.env.QUESTDB_PORT,
+    port: process.env.QUESTDB_ILP_PORT,
 });
 
-client.login(process.env.DISCORD_TOKEN);
+await client.login(process.env.DISCORD_TOKEN);
+
+await registerCommands(client);
+
+setInterval(
+    async () => {
+        const userCount = await getUserCount();
+        client.user.setPresence({
+            status: "online",
+            activities: [
+                {
+                    type: ActivityType.Watching,
+                    name: `you and ${userCount - 1} others`,
+                }
+            ],
+        })
+    },
+    Number(process.env.PRESENCE_UPDATE_INTERVAL ?? "20") * 1000
+);
