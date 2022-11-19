@@ -11,4 +11,4 @@ RUN ["pnpm", "install", "--frozen-lockfile"]
 
 COPY src ./src
 
-CMD ["node", "main.js"]
+CMD ["node", "."]
