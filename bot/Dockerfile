@@ -9,6 +9,6 @@ ENV NODE_ENV production
 COPY package.json pnpm-*.yaml ./
 RUN ["pnpm", "install", "--frozen-lockfile"]
 
-COPY main.js ./
+COPY src ./src
 
 CMD ["node", "main.js"]

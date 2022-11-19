@@ -1,12 +1,12 @@
 {
   "name": "@adma/bot",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "type": "module",
-  "main": "main.js",
+  "main": "src/main.js",
   "author": "Max Niederman <max@maxniederman.com>",
   "license": "MIT",
   "scripts": {
-    "bot": "node main.js"
+    "bot": "node src/main.js"
   },
   "dependencies": {
     "@questdb/nodejs-client": "^1.0.1",
