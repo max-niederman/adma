@@ -37,6 +37,9 @@ const TRACKED_ACTIVITIES = {
 };
 
 client.on("presenceUpdate", async (_old, pres) => {
+    if (pres.user.bot)
+        return;
+    
     const fields = [];
 
     fields.push({ name: "tag", type: "symbol", value: pres.user.tag });
